@@ -1,35 +1,24 @@
 name: Android CI
-
 on:
-<<<<<<< HEAD
-  push:
-    branches: '*'
-  pull_request:
-    branches: '*'
-
-=======
 push:
-branches: '*'
+branches: ''
 pull_request:
-branches: '*'
->>>>>>> 244895070949a989d4a5e214e0dbe33e4f597f0e
+branches: ''
 jobs:
-  build:
-    runs-on: ubuntu-latest
+build:
+runs-on: ubuntu-latest
+steps:
+  - uses: actions/checkout@v3
+  - name: set up JDK 17
+    uses: actions/setup-java@v3
+    with:
+      java-version: '17'
+      distribution: 'adopt'
+      cache: gradle
 
-    steps:
-      - uses: actions/checkout@v3
-      - name: set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'adopt'
-          cache: gradle
+  - name: Grant execute permission for gradlew
+    run: chmod +x gradlew
 
-<<<<<<< HEAD
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-=======
   - name: Build with Gradle
     run: ./gradlew build
 test:
@@ -42,30 +31,11 @@ with:
 java-version: '17'
 distribution: 'adopt'
 cache: gradle
-
   - name: Grant execute permission for gradlew
     run: chmod +x gradlew
->>>>>>> 244895070949a989d4a5e214e0dbe33e4f597f0e
 
-      - name: Build with Gradle
-        run: ./gradlew build
-
-  test:
-    runs-on: macos-13
-    steps:
-      - uses: actions/checkout@v3
-      - name: set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'adopt'
-          cache: gradle
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: run tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          script: ./gradlew connectedCheck
+  - name: run tests
+    uses: reactivecircus/android-emulator-runner@v2
+    with:
+      api-level: 29
+      script: ./gradlew connectedCheck
