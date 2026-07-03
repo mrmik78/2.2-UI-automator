@@ -1,9 +1,9 @@
 name: Android CI
 on:
 push:
-branches: ''
+branches: '*'
 pull_request:
-branches: ''
+branches: '*'
 jobs:
 build:
 runs-on: ubuntu-latest
@@ -31,6 +31,7 @@ with:
 java-version: '17'
 distribution: 'adopt'
 cache: gradle
+
   - name: Grant execute permission for gradlew
     run: chmod +x gradlew
 
