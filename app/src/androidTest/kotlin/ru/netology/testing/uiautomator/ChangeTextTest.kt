@@ -112,7 +112,7 @@ class ChangeTextTest {
 
         val result = device.findObject(By.res(packageName, "textToBeChanged")).text
         assertEquals(result, textToSet)
-        //Thread.sleep(5_000)
+        Thread.sleep(5_000)
     }
     @Test
     fun testEmptyInput() {
